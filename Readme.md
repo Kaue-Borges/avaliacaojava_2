@@ -1,34 +1,20 @@
-# Avaliação 2 — Campeonato de Robôs
+# Avaliação continuação do ROBO.
 
-Continuação da atividade de Programação Orientada a Objetos em Java.
 
-Professor, nesta atividade criei os três tipos de robôs e apliquei herança, polimorfismo e encapsulamento. Abaixo mostro os cadastros, os três combates e como o código calcula o dano de cada tipo.
+Boa noite professor, nessa atividade fiz o que foi solicitado no enunciado, criei as novas classes, apliquei as heranças, e abaixo vou te demonstrar as formas que fiz isso, um exemplo de ataque e defesa conforme solicitado no enunciado, e comentar sobre o codigo completo.
 
-## Robôs usados nos exemplos
+os robos que eu usei foram 
+22 kauezin - ofensivo - ataque 22 defesa 13
+13 kuezin - defensivo - ataque 23 defesa 12
+30 Carlão - equilibrado - ataque 15 defesa 20
 
-| Código | Nome | Tipo | Ataque | Defesa |
-| --- | --- | --- | --- | --- |
-| 22 | kauezin | Ofensivo | 22 | 13 |
-| 13 | kuezin | Defensivo | 23 | 12 |
-| 30 | Carlão | Equilibrado | 15 | 20 |
+abaixo vou mostrar a forma de cadastro dos robos dentro do terminal no vs code
 
-Cada robô começa com **100 de energia** e **0 pontos**.
-
-## Cadastro pelo terminal
-
-O menu continua com as opções de cadastrar, listar e realizar combates:
-
-```text
-cadastro de robos
+cadastro de robos  (aqui eu cadastrei o primeiro robo, o robo ofensivo)
 1 Cadastrar robo
 2 Lista dos robos
 3 realizar combate
 0 Sair
-```
-
-### Robô ofensivo
-
-```text
 digite a opção: 1
 Digite o código do robo: 22
 Digite o nome do robo: kauezin
@@ -37,11 +23,12 @@ informe o poder de defesa: 13
 qual o tipo do robo? 1 ofensivo, 2 defensivo, 3 equilibrado
 1
 Robo cadastrado.
-```
 
-### Robô defensivo
-
-```text
+cadastro de robos  (aqui eu cadastrei o segundo robo, o robo defensivo)
+1 Cadastrar robo
+2 Lista dos robos
+3 realizar combate
+0 Sair
 digite a opção: 1
 Digite o código do robo: 13
 Digite o nome do robo: kuezin
@@ -50,11 +37,12 @@ informe o poder de defesa: 12
 qual o tipo do robo? 1 ofensivo, 2 defensivo, 3 equilibrado
 2
 Robo cadastrado.
-```
 
-### Robô equilibrado
-
-```text
+cadastro de robos ( e aqui foi o cadastro do terceiro robo, o robo equilibrado)
+1 Cadastrar robo
+2 Lista dos robos
+3 realizar combate
+0 Sair
 digite a opção: 1
 Digite o código do robo: 30
 Digite o nome do robo: Carlão
@@ -63,182 +51,175 @@ informe o poder de defesa: 20
 qual o tipo do robo? 1 ofensivo, 2 defensivo, 3 equilibrado
 3
 Robo cadastrado.
-```
 
-O tipo é escolhido no próprio cadastro: **1** cria um `RoboOfensivo`, **2** cria um `RoboDefensivo` e **3** cria um `RoboEquilibrado`. Todos ficam no mesmo `ArrayList<Robo>`.
+abaixo vou explicar a parte de selecionar o tipo do robo, se é ofensivo, defensivo ou equilibrado.
+o tipo é escolhido no proprio cadastro: 1 cria um RoboOfensivo, 2 um RoboDefensivo e 3 um RoboEquilibrado
+mas todos vão pro mesmo Array
 
-O cadastro aceita ataque entre **10 e 30** e defesa entre **0 e 20**. Um tipo diferente de 1, 2 ou 3 é recusado.
+a ordem das lutas foi essa pq a energia não recupera:
+primeiro kauezin x kuezin, depois kuezin x Carlão e por ultimo kauezin x Carlão
+o kuezin saiu da primeira com 30 certinho, então ainda deu pra lutar
 
-## Regras dos combates
+combate 1 - ofensivo contra defensivo (kauezin x kuezin)
+a luta vai ser entre kauezin e kuezin
+o robo kuezin vai começar atacando.
+rodada 1
+kuezin atacou kauezin
+dano: 10
+A energia do kauezin é: 90
+kauezin atacou kuezin
+dano: 12
+A energia do kuezin é: 88
+rodada 2
+kuezin atacou kauezin
+dano: 15
+A energia do kauezin é: 75
+kauezin atacou kuezin
+dano: 17
+A energia do kuezin é: 71
+rodada 3
+kuezin atacou kauezin
+dano: 10
+A energia do kauezin é: 65
+kauezin atacou kuezin
+dano: 12
+A energia do kuezin é: 59
+rodada 4
+kuezin atacou kauezin
+dano: 15
+A energia do kauezin é: 50
+kauezin atacou kuezin
+dano: 17
+A energia do kuezin é: 42
+rodada 5
+kuezin atacou kauezin
+dano: 10
+A energia do kauezin é: 40
+kauezin atacou kuezin
+dano: 12
+A energia do kuezin é: 30
+o vencedor é kauezin
+o kauzein começou pq  os dois tinham 0 pontos, ai começa o de menor codigo (13)
+pq deu 12 (kauezin atacou kuezin na rodada 1):
+o kauezin é ofensivo então ganha +5 no ataque só no golpe: 22 + 5 = 27
+tira a defesa do kuezin: 27 - 12 = 15
+15 já é maior que 5 então fica 15
+rodada 1 é impar então não tem bonus
+o kuezin é defensivo então tira 3: 15 - 3 = 12
+na rodada 2 é a mesma conta mas ganha +5 por ser par: 15 + 5 = 20, 20 - 3 = 17
 
-- Os dois robôs precisam estar cadastrados e ter pelo menos **30 de energia** para iniciar a luta.
-- Um robô não pode lutar contra ele mesmo.
-- Começa o robô com menos pontos. Se os pontos forem iguais, começa o de menor código.
-- Cada combate tem até **5 rodadas** e termina antes se a energia de um robô chegar a zero.
-- A energia **não é recuperada entre os combates**.
-- Vence quem terminar com mais energia. Se a energia for igual, ocorre empate.
-- A vitória vale **3 pontos**, o empate vale **1 ponto para cada robô** e a derrota não dá pontos.
+combate 2 - defensivo contra equilibrado (kuezin x Carlão)
+a luta vai ser entre kuezin e Carlão
+o robo kuezin vai começar atacando.
+rodada 1
+kuezin atacou Carlão
+dano: 5
+A energia do Carlão é: 95
+Carlão atacou kuezin
+dano: 2
+A energia do kuezin é: 28
+rodada 2
+kuezin atacou Carlão
+dano: 10
+A energia do Carlão é: 85
+Carlão atacou kuezin
+dano: 7
+A energia do kuezin é: 21
+rodada 3
+kuezin atacou Carlão
+dano: 5
+A energia do Carlão é: 80
+Carlão atacou kuezin
+dano: 2
+A energia do kuezin é: 19
+rodada 4
+kuezin atacou Carlão
+dano: 10
+A energia do Carlão é: 70
+Carlão atacou kuezin
+dano: 7
+A energia do kuezin é: 12
+rodada 5
+kuezin atacou Carlão
+dano: 5
+A energia do Carlão é: 65
+Carlão atacou kuezin
+dano: 2
+A energia do kuezin é: 10
+o vencedor é Carlão
+pq deu 2 (Carlão atacou kuezin na rodada 1):
+o Carlão é equilibrado então o ataque fica 15 normal
+tira a defesa do kuezin: 15 - 12 = 3
+3 é menor que 5 então vira 5 (dano minimo)
+rodada 1 é impar então não tem bonus
+o kuezin é defensivo então tira 3: 5 - 3 = 2
 
-### Ordem do cálculo de dano
+combate 3 - ofensivo contra equilibrado kauezin contra Carlão
+a luta vai ser entre kauezin e Carlão
+o robo kauezin vai começar atacando.
+rodada 1
+kauezin atacou Carlão
+dano: 7
+A energia do Carlão é: 58
+Carlão atacou kauezin
+dano: 5
+A energia do kauezin é: 35
+rodada 2
+kauezin atacou Carlão
+dano: 12
+A energia do Carlão é: 46
+Carlão atacou kauezin
+dano: 10
+A energia do kauezin é: 25
+rodada 3
+kauezin atacou Carlão
+dano: 7
+A energia do Carlão é: 39
+Carlão atacou kauezin
+dano: 5
+A energia do kauezin é: 20
+rodada 4
+kauezin atacou Carlão
+dano: 12
+A energia do Carlão é: 27
+Carlão atacou kauezin
+dano: 10
+A energia do kauezin é: 10
+rodada 5
+kauezin atacou Carlão
+dano: 7
+A energia do Carlão é: 20
+Carlão atacou kauezin
+dano: 5
+A energia do kauezin é: 5
+o vencedor é Carlão
+o kauezi começou porque os dois tinham 3 pontos, ai vai o de menor codigo (22)
+pq deu 12 (kauezin atacou Carlão na rodada 2):
+ofensivo ganha +5: 22 + 5 = 27
+tira a defesa do Carlão: 27 - 20 = 7
+7 é maior que 5 então fica 7
+rodaa 2 é par então ganha +5: 7 + 5 = 12
+o Carlão é equilibrado então não tira nada, fica 12
 
-1. Pega o ataque do golpe. O ofensivo ganha **+5**, sem alterar seu ataque cadastrado.
-2. Subtrai a defesa do adversário.
-3. Se o resultado for menor que **5**, aplica o dano mínimo de **5**.
-4. Nas rodadas pares, soma **+5 de dano**, independentemente do tipo do atacante.
-5. Se o adversário for defensivo, reduz o dano em **3**, respeitando o mínimo final de **2**.
+agora vou explicar  onde eu usei herança
 
-O equilibrado usa o comportamento padrão, sem bônus próprio de ataque ou redução de dano.
+o Robo virou abstract, não da pra dar new Robo, só nos filhos
+o RoboOfensivo, RoboDefensivo e RoboEquilibrado fazem extends Robo
+e usam o super pra mandar codigo, nome, ataque, defesa e o tipo pro Robo
+não repeti nenhum atributo nos filhos, tudo fica no Robo
+onde eu usei polimorfismo:
+no Robo tem o ataqueDoGolpe() e o reduzirDanoRecebido()
+o ofensivo sobrescreve o ataqueDoGolpe() com @Override e soma 5
+o defensivo sobrescreve o reduzirDanoRecebido() com @Override e tira 3 (minimo 2)
+o equilibrado não sobrescreve nada, usa o do Robo mesmo
+o calcularDano() só chama esses metodos e o java escolhe o certo de cada robo
+todos os robos ficam no mesmo Array
+não usei instanceof nem if de tipo pra calcular o dano
 
-## Exemplos dos três combates
-
-Usei esta ordem: **kauezin × kuezin**, depois **kuezin × Carlão** e, por último, **kauezin × Carlão**.
-
-Como a energia não recupera, cada luta começa com a energia que sobrou da anterior. O kuezin terminou a primeira com exatamente 30, então ainda pôde participar da segunda.
-
-As tabelas abaixo organizam os danos e a energia ao final de cada rodada dos exemplos.
-
-### Combate 1 — Ofensivo contra defensivo
-
-**kauezin × kuezin**
-
-Os dois começam com 100 de energia e 0 pontos. O **kuezin** ataca primeiro porque seu código é **13**, menor que o código **22** do kauezin.
-
-| Rodada | Dano de kuezin em kauezin | Dano de kauezin em kuezin | Energia de kauezin | Energia de kuezin |
-| --- | --- | --- | --- | --- |
-| 1 | 10 | 12 | 90 | 88 |
-| 2 | 15 | 17 | 75 | 71 |
-| 3 | 10 | 12 | 65 | 59 |
-| 4 | 15 | 17 | 50 | 42 |
-| 5 | 10 | 12 | 40 | 30 |
-
-**Vencedor: kauezin**, com 40 de energia contra 30. Ele ganha 3 pontos.
-
-#### Por que o kauezin causou 12 de dano na rodada 1?
-
-1. Como ele é ofensivo, o ataque do golpe fica `22 + 5 = 27`.
-2. Subtraindo a defesa do kuezin: `27 - 12 = 15`.
-3. O resultado já é maior que o mínimo de 5.
-4. A rodada 1 é ímpar, então não recebe o bônus de rodada.
-5. Como o kuezin é defensivo, reduz 3: `15 - 3 = 12`.
-
-Na rodada 2, o bônus da rodada par entra antes da redução: `15 + 5 = 20`, depois `20 - 3 = 17`.
-
-### Combate 2 — Defensivo contra equilibrado
-
-**kuezin × Carlão**
-
-O kuezin começa com **30 de energia** e o Carlão com **100**. Os dois estão com 0 pontos, então o **kuezin** começa por ter o menor código: 13.
-
-| Rodada | Dano de kuezin em Carlão | Dano de Carlão em kuezin | Energia de kuezin | Energia de Carlão |
-| --- | --- | --- | --- | --- |
-| 1 | 5 | 2 | 28 | 95 |
-| 2 | 10 | 7 | 21 | 85 |
-| 3 | 5 | 2 | 19 | 80 |
-| 4 | 10 | 7 | 12 | 70 |
-| 5 | 5 | 2 | 10 | 65 |
-
-**Vencedor: Carlão**, com 65 de energia contra 10. Ele ganha 3 pontos.
-
-O kuezin consegue terminar essa luta mesmo ficando abaixo de 30, porque essa exigência é verificada antes de iniciar o combate.
-
-#### Por que o Carlão causou só 2 de dano na rodada 1?
-
-1. Como ele é equilibrado, o ataque do golpe continua em 15.
-2. Subtraindo a defesa do kuezin: `15 - 12 = 3`.
-3. Como 3 é menor que 5, aplica o dano mínimo de **5**.
-4. A rodada 1 é ímpar, então não recebe o bônus de rodada.
-5. O kuezin é defensivo e reduz 3: `5 - 3 = 2`.
-
-Nas rodadas pares, o cálculo fica `5 + 5 - 3 = 7`.
-
-### Combate 3 — Ofensivo contra equilibrado
-
-**kauezin × Carlão**
-
-O kauezin começa com **40 de energia** e o Carlão com **65**. Os dois têm 3 pontos, então o **kauezin** começa porque seu código é **22**, menor que 30.
-
-| Rodada | Dano de kauezin em Carlão | Dano de Carlão em kauezin | Energia de kauezin | Energia de Carlão |
-| --- | --- | --- | --- | --- |
-| 1 | 7 | 5 | 35 | 58 |
-| 2 | 12 | 10 | 25 | 46 |
-| 3 | 7 | 5 | 20 | 39 |
-| 4 | 12 | 10 | 10 | 27 |
-| 5 | 7 | 5 | 5 | 20 |
-
-**Vencedor: Carlão**, com 20 de energia contra 5. Ele ganha mais 3 pontos.
-
-#### Por que o kauezin causou 12 de dano na rodada 2?
-
-1. O bônus ofensivo deixa o ataque do golpe em `22 + 5 = 27`.
-2. Subtraindo a defesa do Carlão: `27 - 20 = 7`.
-3. O resultado já é maior que o mínimo de 5.
-4. Como a rodada 2 é par, soma 5: `7 + 5 = 12`.
-5. O Carlão é equilibrado, então não reduz o dano recebido.
-
-### Situação depois dos três combates
-
-| Robô | Energia | Vitórias | Derrotas | Pontos | Combates realizados |
-| --- | --- | --- | --- | --- | --- |
-| kauezin | 5 | 1 | 1 | 3 | 2 |
-| kuezin | 10 | 0 | 2 | 0 | 2 |
-| Carlão | 20 | 2 | 0 | 6 | 2 |
-
-Ao final, nenhum dos três tem os 30 de energia necessários para iniciar outro combate.
-
-## Onde usei herança
-
-A classe `Robo` virou `abstract`, então não é possível criar um objeto diretamente com `new Robo(...)`.
-
-As classes `RoboOfensivo`, `RoboDefensivo` e `RoboEquilibrado` usam `extends Robo`. Nos construtores, usei `super(...)` para passar código, nome, ataque, defesa e tipo para a classe base.
-
-Os atributos ficam em `Robo`, sem repetir as declarações nas subclasses.
-
-## Onde usei polimorfismo
-
-A classe `Robo` tem os métodos `ataqueDoGolpe()` e `reduzirDanoRecebido(int dano)`.
-
-| Classe | Comportamento |
-| --- | --- |
-| `RoboOfensivo` | Sobrescreve `ataqueDoGolpe()` com `@Override` e soma 5 ao ataque do golpe. |
-| `RoboDefensivo` | Sobrescreve `reduzirDanoRecebido(int dano)` com `@Override` e reduz 3, com mínimo final de 2. |
-| `RoboEquilibrado` | Usa os métodos herdados de `Robo`, sem sobrescrever. |
-
-O método `calcularDano()` chama esses métodos, e o Java usa a implementação do objeto envolvido no ataque ou na defesa.
-
-Todos os robôs ficam no mesmo `ArrayList<Robo>`. Não usei `instanceof` nem `if` de tipo para calcular o dano. Os `if` do cadastro servem apenas para escolher qual classe instanciar.
-
-## Onde usei encapsulamento
-
-Todos os atributos de `Robo` são `private`. Para consultar os valores, usei métodos como `getNome()`, `getAtaque()` e `getPontos()`.
-
-Não criei setters. As alterações passam pelos métodos da classe:
-
-- `receberDano()` diminui a energia e impede que ela fique negativa.
-- `registrarVitoria()` soma uma vitória, 3 pontos e um combate realizado.
-- `registrarDerrota()` soma uma derrota e um combate realizado.
-- `registrarEmpate()` soma 1 ponto e um combate realizado.
-- `atributosValidos()` verifica os limites de ataque e defesa e é chamado no cadastro.
-- `podeLutar()` verifica se o robô tem pelo menos 30 de energia antes da luta.
-
-## Arquivos do projeto
-
-| Arquivo | Responsabilidade |
-| --- | --- |
-| [Main.java](atividadeavaliativa/Main.java) | Menu, cadastro, listagem e controle dos combates. |
-| [Robo.java](atividadeavaliativa/Robo.java) | Classe abstrata com atributos, cálculo de dano e métodos comuns. |
-| [RoboOfensivo.java](atividadeavaliativa/RoboOfensivo.java) | Bônus de ataque do robô ofensivo. |
-| [RoboDefensivo.java](atividadeavaliativa/RoboDefensivo.java) | Redução de dano do robô defensivo. |
-| [RoboEquilibrado.java](atividadeavaliativa/RoboEquilibrado.java) | Robô que usa o comportamento padrão da classe base. |
-
-## Como executar
-
-É necessário ter o **JDK** instalado e os comandos `javac` e `java` disponíveis no terminal.
-
-Na pasta principal do projeto, onde está este README, execute:
-
-```powershell
-javac -encoding UTF-8 atividadeavaliativa/*.java
-java atividadeavaliativa.Main
-```
-
-Os cadastros e resultados ficam na memória durante a execução. Ao fechar e abrir o programa, é necessário cadastrar os robôs novamente.
+onde eu usei encapsulamento:
+todos os atributos do Robo tão private
+pra pegar os valores usa os get (getNome, getAtaque, getPontos...)
+não tem set, a energia só muda pelo receberDano() e nunca fica negativa
+pontos, vitorias e derrotas só mudam pelo registrarVitoria(), registrarDerrota() e registrarEmpate()
+a validação do ataque e defesa (atributosValidos) e a dos 30 de energia (podeLutar) ficam no Robo
+ #
